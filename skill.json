@@ -1,0 +1,57 @@
+{
+  "name": "genpark-enterprise-identity-token-exchange-bridge-skill",
+  "version": "1.0.0",
+  "description": "Enterprise Cross-System Identity & Token Exchange Bridge (inspired by WeChat Work, Tencent Cloud OAuth2 & WorkBuddy Delegated Execution). Safely manages on-behalf-of token exchange, scoped permission delegation, token lifetime refresh, and zero-leakage ephemeral credentials.",
+  "tools": [
+    {
+      "name": "exchange_enterprise_identity_token",
+      "description": "Enterprise identity token exchange: issue on-behalf-of delegated tokens, validate scope boundaries, refresh expired tokens, and revoke credentials.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "exchange_token_on_behalf_of",
+              "validate_token_access",
+              "refresh_token",
+              "revoke_token",
+              "get_active_sessions"
+            ],
+            "description": "Identity bridge action."
+          },
+          "subject_user_id": {
+            "type": "string",
+            "description": "Enterprise employee or user identity."
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "Delegated autonomous agent identity."
+          },
+          "target_service": {
+            "type": "string",
+            "description": "Destination enterprise service (e.g. TENCENT_DOCS, PAYROLL, GIT)."
+          },
+          "requested_scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of permission scopes requested."
+          },
+          "token_string": {
+            "type": "string",
+            "description": "Delegated token string to validate or refresh."
+          },
+          "ttl_seconds": {
+            "type": "integer",
+            "description": "Token time-to-live in seconds (default 3600)."
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  ]
+}
